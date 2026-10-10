@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Picture from '../../components/Picture.astro';
+import Quote from '../../components/Quote.astro';
+import { services } from '../../data/site.mjs';
+export function getStaticPaths() { return services.map(service => ({ params: { slug: service.id }, props: { service } })); }
+const { service } = Astro.props;
+---
+<Layout title={`${service.name} — Forma | Demonstração Ghati`} description={`${service.intro} Página conceitual criada pela Ghati.`}>
+  <section class="service-hero section-shell"><a class="back-link" href="/#servicos">← Todos os cuidados</a><div class="service-hero-title"><div><span class="eyebrow">{service.category}</span><h1>{service.name}<span>.</span></h1></div><p>{service.intro}</p></div><figure><Picture name={service.image} alt={`Fotografia conceitual ilustrando ${service.name.toLowerCase()}`} eager /><figcaption>Imagem ilustrativa produzida com IA · projeto conceitual da Ghati</figcaption></figure></section>
+  <section class="service-explanation section-shell"><div><span class="eyebrow">O cuidado</span><h2>{service.title}</h2><p>{service.note}</p><a class="button button-orange" href="#orcamento">Conversar sobre {service.name.toLowerCase()} <span aria-hidden="true">↗</span></a></div><div class="service-info"><h3>O que faz parte da proposta</h3><ul>{service.items.map(item => <li>{item}</li>)}</ul><h3>Quando conversar sobre esse serviço</h3><ul>{service.needs.map(item => <li>{item}</li>)}</ul><div class="assessment"><h3>Antes de definir o atendimento</h3><p>{service.assessment}</p></div></div></section>
+  <aside class="service-demo-note section-shell">Esta é uma demonstração. Escopo, preços e condições de atendimento devem refletir a operação de cada empresa ao personalizar o site.</aside>
+  <Quote initial={service.name} />
+  <section class="other-services section-shell"><h2>Conheça os outros cuidados.</h2><div>{services.filter(s => s.id !== service.id).map(s => <a href={`/servicos/${s.id}/`}><span>{s.category}</span><strong>{s.name}</strong><span aria-hidden="true">↗</span></a>)}</div></section>
+</Layout>

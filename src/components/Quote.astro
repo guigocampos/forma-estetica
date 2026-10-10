@@ -1,0 +1,28 @@
+---
+import { quoteOptions } from '../lib/quote.mjs';
+const { initial = '' } = Astro.props;
+---
+<section id="orcamento" class="quote-section section-shell" aria-labelledby="quote-title">
+  <div class="quote-intro">
+    <span class="eyebrow">Orçamento pelo WhatsApp</span>
+    <h2 id="quote-title">Pronto para<br /> dar atenção<br /> <span>ao seu carro?</span></h2>
+    <p>Escolha o serviço, conte qual é o seu carro e leve as informações prontas para o WhatsApp.</p>
+    <div class="demo-contact"><span class="demo-label">Demonstração da Ghati</span><p>Este pedido será encaminhado à Ghati, criadora deste site conceitual.</p><span>(13) 97814-3448</span></div>
+  </div>
+  <form class="quote-form" data-quote>
+    <div class="form-heading"><span>Seu pedido</span><span>Sem cadastro</span></div>
+    <label for="quote-service">Qual serviço você procura?</label>
+    <select id="quote-service" name="service" required><option value="">Selecione um serviço</option>{quoteOptions.map(option => <option selected={initial === option}>{option}</option>)}</select>
+    <label for="quote-vehicle">Qual é o seu veículo?</label>
+    <input id="quote-vehicle" name="vehicle" placeholder="Ex.: Onix 2020" maxlength="80" required autocomplete="off" />
+    <label for="quote-observation">Quer acrescentar algo? <span>Opcional</span></label>
+    <textarea id="quote-observation" name="observation" placeholder="Conte quais áreas precisam de atenção." maxlength="400" rows="3"></textarea>
+    <details class="message-preview"><summary>Ver a mensagem preparada <span aria-hidden="true">+</span></summary><pre data-message>Escolha um serviço e informe o veículo para preparar sua mensagem.</pre></details>
+    <p class="form-error" data-error role="alert"></p>
+    <button class="button button-orange quote-submit" type="submit">Continuar no WhatsApp<span aria-hidden="true">↗</span></button>
+    <p class="form-note">Você confere e envia a mensagem no WhatsApp. Este pedido não confirma um agendamento.</p>
+    <noscript><p>Ative o JavaScript para preparar a mensagem ou <a href="https://wa.me/5513978143448">converse diretamente com a Ghati</a>.</p></noscript>
+  </form>
+</section>
+
+
